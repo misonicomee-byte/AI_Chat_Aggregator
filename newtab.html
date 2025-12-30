@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Chat Aggregator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="background"></div>
+
+  <div class="container">
+    <!-- ヘッダー -->
+    <header class="header">
+      <h1>AI Chat Aggregator</h1>
+      <div class="header-right">
+        <div class="weather-widget" id="weatherWidget">
+          <span class="weather-icon">--</span>
+          <span class="weather-temp">--°C</span>
+          <span class="weather-details">
+            <span class="weather-high-low">
+              <span class="weather-high">--°</span>/<span class="weather-low">--°</span>
+            </span>
+            <span class="weather-rain-wrap">☔<span class="weather-rain">--%</span></span>
+          </span>
+          <span class="weather-city">名古屋</span>
+        </div>
+        <div class="time-display" id="timeDisplay">--:--</div>
+      </div>
+    </header>
+
+    <!-- クイックリンク -->
+    <div class="quick-links">
+      <a href="https://www.youtube.com" target="_blank" class="quick-link" title="YouTube">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+      </a>
+      <a href="https://twitter.com" target="_blank" class="quick-link" title="X (Twitter)">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <a href="https://mail.google.com" target="_blank" class="quick-link" title="Gmail">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M20 18h-2V9.25L12 13 6 9.25V18H4V6h1.2l6.8 4.25L18.8 6H20m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2z"/></svg>
+      </a>
+      <a href="https://maps.google.com" target="_blank" class="quick-link" title="Google Maps">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      </a>
+      <a href="https://script.google.com/home?hl=ja" target="_blank" class="quick-link" title="Google Apps Script">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </a>
+      <a href="https://calendar.google.com" target="_blank" class="quick-link" title="Google Calendar">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm-8 4H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
+      </a>
+      <a href="https://drive.google.com" target="_blank" class="quick-link" title="Google Drive">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M7.71 3.5L1.15 15l4.58 6.5h2.87l-4.58-6.5L9.14 6.37 7.71 3.5zm1.43 0l6.56 11.5H22.85l-1.43-2.5H12.27L7.71 3.5h1.43zm7.71 0l4.58 8-4.58 6.5h2.87l4.58-6.5-4.58-8h-2.87zM8 8l-4 7h8l4-7H8z"/></svg>
+      </a>
+      <a href="https://www.notion.so/eb09fcd2dc03472287fdef6f5ae37882?v=cc41a5ca494747e19f1bbc2843bca16b" target="_blank" class="quick-link" title="Notion">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.98-.7-2.055-.607L3.01 2.295c-.466.046-.56.28-.374.466zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.167V6.354c0-.606-.233-.933-.748-.887l-15.177.887c-.56.047-.747.327-.747.934zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.748 0-.935-.234-1.495-.933l-4.577-7.186v6.952l1.448.327s0 .84-1.168.84l-3.22.186c-.094-.186 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.456-.233 4.764 7.279v-6.44l-1.215-.14c-.093-.514.28-.887.747-.933zM2.877 1.106l13.027-.933c1.635-.14 2.055-.047 3.08.7l4.24 2.986c.7.513.933.653.933 1.213v16.378c0 1.026-.373 1.634-1.68 1.726l-15.458.934c-.98.047-1.448-.093-1.962-.747l-3.129-4.06c-.56-.747-.793-1.306-.793-1.96V2.926c0-.84.373-1.54 1.682-1.82z"/></svg>
+      </a>
+      <a href="https://houmon-ai-assistant-1061138604090.asia-northeast1.run.app/" target="_blank" class="quick-link" title="診療補助ツール">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+      </a>
+    </div>
+
+    <!-- カレンダー・予定セクション -->
+    <div class="schedule-section">
+      <div class="schedule-header">
+        <h2>Googleカレンダー</h2>
+        <div class="auth-buttons">
+          <button id="loginBtn" class="auth-btn login-btn">Googleカレンダー連携</button>
+          <button id="logoutBtn" class="auth-btn logout-btn" style="display: none;">連携解除</button>
+        </div>
+      </div>
+      <div class="schedule-container">
+        <div class="schedule-card">
+          <h3>今日の予定</h3>
+          <div id="todaySchedule" class="schedule-list">
+            <p class="loading">読み込み中...</p>
+          </div>
+        </div>
+        <div class="schedule-card">
+          <h3>明日の予定</h3>
+          <div id="tomorrowSchedule" class="schedule-list">
+            <p class="loading">読み込み中...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AIサービスセクション -->
+    <div class="ai-section">
+      <!-- ChatGPT -->
+      <div class="ai-column">
+        <a href="https://chatgpt.com" target="_blank" class="ai-card chatgpt-card">
+          <div class="card-icon">🤖</div>
+          <div class="card-title">ChatGPT</div>
+          <div class="card-description">OpenAI</div>
+        </a>
+        <div class="ai-history-list" id="chatgptHistory">
+          <p class="loading">読み込み中...</p>
+        </div>
+      </div>
+
+      <!-- Claude -->
+      <div class="ai-column">
+        <a href="https://claude.ai" target="_blank" class="ai-card claude-card">
+          <div class="card-icon">✨</div>
+          <div class="card-title">Claude</div>
+          <div class="card-description">Anthropic</div>
+        </a>
+        <div class="ai-history-list" id="claudeHistory">
+          <p class="loading">読み込み中...</p>
+        </div>
+      </div>
+
+      <!-- Gemini -->
+      <div class="ai-column">
+        <a href="https://gemini.google.com" target="_blank" class="ai-card gemini-card">
+          <div class="card-icon">🎨</div>
+          <div class="card-title">Gemini</div>
+          <div class="card-description">Google</div>
+        </a>
+        <div class="ai-history-list" id="geminiHistory">
+          <p class="loading">読み込み中...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Webアプリセクション -->
+    <div class="webapp-section">
+      <h2 class="webapp-title">Webアプリ</h2>
+      <div class="webapp-grid">
+        <a href="https://dashboard-cloudrun-6s5nh5dllq-an.a.run.app/" target="_blank" class="webapp-link">経営管理ダッシュボード</a>
+        <a href="https://34-36-110-28.nip.io/" target="_blank" class="webapp-link">経営管理ダッシュボード（職員用）</a>
+        <a href="https://survey-dashboard-666632577188.asia-northeast1.run.app/" target="_blank" class="webapp-link">職員アンケート結果</a>
+        <a href="https://instagram-dashboard-6s5nh5dllq-an.a.run.app/" target="_blank" class="webapp-link">Instagram解析</a>
+        <a href="https://buppin-checker-666632577188.asia-northeast1.run.app/" target="_blank" class="webapp-link">物品準備チェック</a>
+        <a href="https://script.google.com/macros/s/AKfycbwtsfqVZwJR-UuPbxYVEuohcioUpb8Kwdvj-4UUHHe-FY-lQLetUbnfzlHQ1b7h8-W3PA/exec" target="_blank" class="webapp-link">渡邊Dr売上ダッシュボード</a>
+        <a href="https://script.google.com/macros/s/AKfycbzlYLUTm3BVywdLQF9wEZUGuMjcsMj1BBdiGlaNu4tKaC--mLxmkCUfXeoUoJUu3VHd/exec" target="_blank" class="webapp-link">非常勤医師売上ダッシュボード</a>
+        <a href="https://script.google.com/macros/s/AKfycbwxIY4S6ei94PiEjDthAIUOsLsWlQk_J7hNluRJ1-xKpZQmHS1qHY1ADvTZJYrP2mRDZg/exec" target="_blank" class="webapp-link">webORCA全医師粗利計算</a>
+        <a href="https://ncc-pdf-fetcher-666632577188.asia-northeast1.run.app/" target="_blank" class="webapp-link">名古屋臨床PDF取得</a>
+        <a href="https://script.google.com/macros/s/AKfycbywMa07Vy8mS4rjqyvzrFv4ZC8-Grj9nU8S_nUncTXmHW-qfA_8NmQ5wrW8mS-CIl57xQ/exec" target="_blank" class="webapp-link">Web勉強会通知</a>
+        <a href="https://distance-checker-666632577188.asia-northeast1.run.app/" target="_blank" class="webapp-link">訪問範囲チェッカー</a>
+        <a href="https://houmon-ai-assistant-1061138604090.asia-northeast1.run.app/" target="_blank" class="webapp-link">診療補助ツール</a>
+        <a href="https://storage.googleapis.com/patient-map-html/patient-map-mapbox.html" target="_blank" class="webapp-link">患者・居宅事業所分布マップ</a>
+        <a href="https://houmon-kango-list-1061138604090.asia-northeast1.run.app/" target="_blank" class="webapp-link">訪問看護ステーション検索</a>
+        <a href="https://script.google.com/macros/s/AKfycbxedVBuADnrce4kKzktK4wILNrSDOxBwnlVfVXJyUcGLug2eUEV76MxPpvwg80zJFQgZA/exec" target="_blank" class="webapp-link">返戻・月遅れPDF結合</a>
+        <a href="https://script.google.com/macros/s/AKfycbyzMl-oioqECIBcGHbkHmdNneKcmVsP7nf28BffjjtDemr4cB_oRUWUtbGWo6oXFy9o/exec" target="_blank" class="webapp-link">名刺写真保管</a>
+        <a href="https://script.google.com/macros/s/AKfycbwRc7nCM6TMnfiNh2zaD8OuqqZ6TSNDlxL20GcERX12Lou0JOi2HY__BNM7Oy1svvn1/exec" target="_blank" class="webapp-link">献立コレクター</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="newtab.js"></script>
+</body>
+</html>

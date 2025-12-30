@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "AI Chat Aggregator",
+  "version": "1.0.0",
+  "description": "ChatGPT、Claude、Geminiをワンクリックで切り替えられるAIチャット集約ツール",
+  "permissions": [
+    "storage",
+    "tabs",
+    "scripting",
+    "identity",
+    "history"
+  ],
+  "host_permissions": [
+    "*://*/*",
+    "https://www.googleapis.com/*"
+  ],
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "AI Chat Aggregator"
+  },
+  "oauth2": {
+    "client_id": "1061138604090-ugj2lvj3didco8qbtm7v7302mnk3d67k.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/calendar.readonly"
+    ]
+  }
+}
